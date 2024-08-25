@@ -91,13 +91,13 @@ button.accent-button:hover {
   transition: 2s cubic-bezier(0, 0.6, 0.2, 1);
 }
 .article__image--1:before {
-  background-image: url(../img/img-container1/joebiden.png);
+  background-image: url(../img/carbon-quebracho-01.png)
 }
 .article__image--2:before {
-  background-image: url(../img/img-container1/logolg.png);
+  background-image: url(../img/espino-1-1.png);
 }
 .article__image--3:before {
-  background-image: url(../img/img-container1/twitterelonmusk.jpg);
+  background-image: url(../img/lena1-582f0ad54608d2abe916061474168070-640-0.png);
 }
 
 .article__details {
