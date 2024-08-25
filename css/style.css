@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 .main-container {
   max-width: 1280px;
   margin: 3rem auto;
@@ -178,8 +185,9 @@ button.accent-button:hover {
 
 /* Estilos para Flexbox */
 .flex-container {
+  margin: 3rem auto;
   padding: 50px;
-  background-color: #000;
+  background-color: #56262b;
   color: white;
   display: flex;
   justify-content: center;
@@ -397,7 +405,7 @@ padding: 20px;
 
 
 .footer{
-background: #1A1B1B;
+background: #56262b;
 padding:30px 0px;
 font-family: 'Play', sans-serif;
 text-align:center;
@@ -453,6 +461,68 @@ margin:0% 3%;
 display: flex;
 justify-content: center;
 }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 992px) {
+.navbar-expand-lg .navbar-collapse {
+  display: flex;
+  flex-basis: auto;
+  justify-content: center;
+  padding: 20px;
+}
+ }
+
+
+
+ #naki {
+  background-color: #56262b !important;
+  
+}
+
+#naki .navbar-brand,
+#naki .nav-link {
+    color: #fff !important;
+}
+
+
+
+#naki .nav-link.active,
+#naki .nav-link:hover {
+    color: #ddd !important; /* Cambia a un gris claro al hacer hover o en el enlace activo */
 }
 
 
