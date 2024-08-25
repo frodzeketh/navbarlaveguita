@@ -159,3 +159,178 @@ button.accent-button:hover {
 .row-striped {
   padding: 15px 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* FOOTER */
+
+
+.newsletter-subscribe {
+  background-color: black;
+ 
+  color: white;
+}
+
+.newsletter-subscribe .container-newsletter {
+padding: 20px;
+  max-width: 600px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.newsletter-subscribe .intro h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.newsletter-subscribe .intro p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.newsletter-subscribe form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.newsletter-subscribe form .form-group {
+  margin-right: 10px;
+}
+
+.newsletter-subscribe form .form-control {
+  width: 250px;
+  height: 45px;
+  border-radius: 25px;
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  box-shadow: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.newsletter-subscribe form .btn-primary {
+  border-radius: 25px;
+  padding: 10px 30px;
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.newsletter-subscribe form .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+
+
+.footer{
+background: #1A1B1B;
+padding:30px 0px;
+font-family: 'Play', sans-serif;
+text-align:center;
+}
+
+.footer .row{
+display: flex;
+justify-content: space-evenly;
+width:100%;
+margin:1% 0%;
+padding:0.6% 0%;
+color:gray;
+font-size:0.8em;
+}
+
+.footer .row a{
+text-decoration:none;
+color:gray;
+transition:0.5s;
+}
+
+.footer .row a:hover{
+color:#fff;
+}
+
+.footer .row ul{
+width:100%;
+}
+
+.footer .row ul li{
+display:inline-block;
+margin:0px 30px;
+}
+
+.footer .row a i{
+font-size:2em;
+margin:0% 1%;
+}
+
+@media (max-width:720px){
+.footer{
+text-align:left;
+padding:5%;
+}
+.footer .row ul li{
+display:flex;
+margin:10px 0px;
+text-align:left;
+justify-content: center;
+}
+.footer .row a i{
+margin:0% 3%;
+display: flex;
+justify-content: center;
+}
+}
+
+
