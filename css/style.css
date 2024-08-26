@@ -1,6 +1,9 @@
 
 
-
+.navbar-toggler {
+  background-color: transparent !important;
+ 
+}
 
 
 
@@ -35,11 +38,11 @@ button .fa {
   margin-left: 0.5em;
 }
 button.accent-button {
-  border-color: #E65891;
-  color: #E65891;
+  border-color: #56262b;
+  color: #56262b;
 }
 button.accent-button:hover {
-  background-color: #E65891;
+  background-color: #56262b;
   color: #fff;
 }
 
@@ -135,7 +138,7 @@ button.accent-button:hover {
   margin-top: 1rem;
 }
 .article .highlighted-link {
-  color: white;
+  color: black;
 }
 
 /* ====== HOVER ====== */
@@ -272,10 +275,11 @@ button.accent-button:hover {
 
 /* Estilo para el título */
 .titulo_inner {
+  color: #56262b;
   font-size: 2rem;
   margin-bottom: 20px;
   text-align: center;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #56262b;
   width: 100%;
   max-width: 800px;
 }
@@ -284,7 +288,7 @@ button.accent-button:hover {
 .video_inner {
   width: 100%;
   max-width: 800px;
-  border: 2px solid #000;
+  border: 2px solid #56262b;
 }
 
 .video_inner iframe {
@@ -331,6 +335,7 @@ button.accent-button:hover {
 
 .titulo_inner-2 {
   font-size: 2rem;
+  color: #56262b;
   margin-bottom: 20px;
   text-align: center;
   width: 100%;
