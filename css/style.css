@@ -298,6 +298,12 @@ button.accent-button:hover {
       font-size: 1.5rem;
   }
 
+
+  @media (max-width: 600px) {
+    .titulo_inner-2 {
+        font-size: 1.5rem;
+    }
+ }
   .video_inner iframe {
       height: 250px; /* Ajusta la altura del video para pantallas más pequeñas */
   }
@@ -323,6 +329,13 @@ button.accent-button:hover {
 
 
 
+.titulo_inner-2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+}
 
 
 
@@ -340,7 +353,7 @@ button.accent-button:hover {
 
 
 .newsletter-subscribe {
-  background-color: black;
+  background-color: #D9D9D9;
  
   color: white;
 }
