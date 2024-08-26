@@ -129,6 +129,7 @@ button.accent-button:hover {
   color: #042A4F;
 }
 .article__summary {
+  font-family: "Outfit", sans-serif;
   overflow: hidden;
   margin: 0;
   max-height: 6.25rem;
@@ -138,7 +139,9 @@ button.accent-button:hover {
   margin-top: 1rem;
 }
 .article .highlighted-link {
+  font-family: "Outfit", sans-serif;
   color: black;
+  text-decoration: none;
 }
 
 /* ====== HOVER ====== */
@@ -202,10 +205,12 @@ button.accent-button:hover {
 }
 
 .marca {
+  font-family: "Outfit", sans-serif;
   font-weight: bold;
 }
 
 .descripcion {
+  font-family: "Outfit", sans-serif;
   white-space: nowrap; /* Evita que la descripción se divida en dos líneas en pantallas grandes */
 }
 
@@ -275,6 +280,7 @@ button.accent-button:hover {
 
 /* Estilo para el título */
 .titulo_inner {
+  font-family: "Outfit", sans-serif;
   color: #56262b;
   font-size: 2rem;
   margin-bottom: 20px;
@@ -334,6 +340,7 @@ button.accent-button:hover {
 
 
 .titulo_inner-2 {
+  font-family: "Outfit", sans-serif;
   font-size: 2rem;
   color: #56262b;
   margin-bottom: 20px;
@@ -371,6 +378,7 @@ padding: 20px;
 }
 
 .newsletter-subscribe .intro h2 {
+  font-family: "Outfit", sans-serif;
   font-size: 28px;
   font-weight: 700;
   color: white;
