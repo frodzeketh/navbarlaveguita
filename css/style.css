@@ -13,7 +13,7 @@ body {
 
 .main-navbar {
   width: 100%;
-  background-color: #333;
+  background-color: black;
   padding: 10px 0; 
   display: flex;
   justify-content: center; 
@@ -134,7 +134,7 @@ body {
 
 
 .main-container {
-  
+ 
   background-color: black;
   max-width: 1280px;
  
@@ -488,15 +488,15 @@ button.accent-button:hover {
 
 
 .newsletter-subscribe {
-  background-color: #D9D9D9;
- 
+  
+ background-color: black;
   color: white;
 }
 
 .newsletter-subscribe .container-newsletter {
 padding: 20px;
   max-width: 600px;
-  margin: 30px auto;
+  margin: 0px auto;
   text-align: center;
 }
 
@@ -510,7 +510,7 @@ padding: 20px;
 
 .newsletter-subscribe .intro p {
   font-size: 16px;
-  color: #666;
+  color: white;
   margin-bottom: 30px;
 }
 
@@ -529,7 +529,7 @@ padding: 20px;
   height: 45px;
   border-radius: 25px;
   padding: 10px 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #ff8000;
   box-shadow: none;
   outline: none;
   font-size: 14px;
@@ -538,7 +538,7 @@ padding: 20px;
 .newsletter-subscribe form .btn-primary {
   border-radius: 25px;
   padding: 10px 30px;
-  background-color: #007bff;
+  background-color: #ff8000;
   border-color: #56262b;
   color: #fff;
   font-weight: 600;
@@ -547,7 +547,7 @@ padding: 20px;
 }
 
 .newsletter-subscribe form .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #ff8000;
   border-color: #56262b;
 }
 
@@ -574,7 +574,7 @@ padding: 20px;
 
 
 .footer{
-background: #56262b;
+background: black;
 padding:30px 0px;
 font-family: 'Play', sans-serif;
 text-align:center;
@@ -1099,5 +1099,155 @@ img {
 
   .main-contact a {
     font-size: 15px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos generales para las tarjetas */
+.cards {
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+}
+
+.cards_inner {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+/* Imagen dentro de la tarjeta */
+.cards_inner img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Título de la tarjeta */
+.cards_inner h3 {
+  text-align: center;
+  margin: 15px 0;
+  font-size: 1.5em;
+}
+
+/* Descripción de la tarjeta */
+.cards_inner p {
+  text-align: center;
+  font-size: 1em;
+  color: #333;
+}
+
+/* Estilos para botones dentro de la tarjeta */
+.cards_inner button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 1em;
+}
+
+.cards_inner button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para vista de escritorio */
+@media (min-width: 768px) {
+  .cards_inner {
+    width: calc(50% - 40px); /* Dos tarjetas por fila */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+header {
+  /* Crear una cuadrícula que abarque el ancho y la altura de la vista */
+  display: grid;
+  grid-template-rows: 100vh;
+  overflow: hidden;
+  box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.video-bg {
+  /* Abarcar toda la cuadrícula */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.video-overlay {
+  /* Abarcar toda la cuadrícula */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+
+
+@media (max-width: 768px) {
+  h1 {
+      font-size: 1.5rem;
   }
 }
