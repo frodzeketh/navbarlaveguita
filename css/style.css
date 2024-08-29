@@ -26,7 +26,7 @@ body {
   height: auto; 
 }
 
-/* Responsive styles */
+/* MEDIA QUERIE NAVBAR*/
 @media (max-width: 600px) {
   .main-navbar {
     padding: 10px 0; 
@@ -64,7 +64,7 @@ body {
 
 
 
-
+/* IMAGEN TIPOS DE CARBÓN */
 
 
 
@@ -78,12 +78,12 @@ body {
 }
 
 .section-image {
-  padding: 20px;
+  
   width: 100%;
   max-width: 800px;
-  height: auto; /* Mantener la proporción de la imagen */
-  border-top: 2px solid #56262b;
-  border-bottom: 2px solid #56262b;
+  height: auto; 
+  border-top: 2px solid #ff8000;
+  border-bottom: 2px solid #ff8000;
 }
 
 .titulo_inner {
@@ -92,12 +92,12 @@ body {
   font-size: 2rem;
   margin: 20px 0 0 0;
   text-align: center;
-  border-bottom: 2px solid #56262b;
+  border-bottom: 2px solid #ff8000;
   width: 100%;
   max-width: 800px;
 }
 
-/* Responsive styles */
+/* MEDIA QUERIES TIPOS DE CARBÓN */
 @media (max-width: 600px) {
   .titulo_inner {
     font-size: 1.5rem;
@@ -128,25 +128,16 @@ body {
 
 
 
-
-
-
-
-
-
-
-.navbar-toggler {
-  background-color: transparent !important;
- 
-}
+/* CARDS PRODUCTOS */
 
 
 
 
 .main-container {
+  
   background-color: black;
   max-width: 1280px;
-  margin: 3rem auto;
+ 
   padding: 1rem;
 }
 
@@ -183,7 +174,7 @@ button.accent-button:hover {
 }
 
 .articles {
-  
+  background-color: black;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2.5rem;
@@ -326,11 +317,11 @@ button.accent-button:hover {
 
 
 
-/* Estilos para Flexbox */
+/* SECCIÓN PARRAFO */
 .flex-container {
-  margin: 3rem auto;
+ 
   padding: 50px;
-  background-color: #56262b;
+  background-color: black;
   color: white;
   display: flex;
   justify-content: center;
@@ -348,10 +339,10 @@ button.accent-button:hover {
 
 .descripcion {
   font-family: "Outfit", sans-serif;
-  white-space: nowrap; /* Evita que la descripción se divida en dos líneas en pantallas grandes */
+  white-space: nowrap; 
 }
 
-/* Responsivo para pantallas pequeñas */
+/* MEDIA QUERIES PARRAFO */
 @media (max-width: 600px) {
   .flex-container {
       flex-direction: column;
@@ -390,22 +381,16 @@ button.accent-button:hover {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+/* CONTAINER UBICACIONES, TIPS VIDEO */
 
 
 
 .container_video {
-  background-color: black;
+  background-image: url('../img/IMAGECARBON.jpeg');
+  background-size: cover;
+  background-position: center; /* Centra la imagen en el contenedor */
+    background-repeat: no-repeat;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -419,28 +404,28 @@ button.accent-button:hover {
 /* Estilo para el título */
 .titulo_inner {
   font-family: "Outfit", sans-serif;
-  color: #56262b;
+  color: white;
   font-size: 2rem;
   margin-bottom: 20px;
   text-align: center;
-  border-bottom: 2px solid #56262b;
+  border-bottom: 2px solid #ff8000;
   width: 100%;
   max-width: 800px;
 }
 
-/* Estilo para el contenedor del video */
+
 .video_inner {
   width: 100%;
   max-width: 800px;
-  border: 2px solid #56262b;
+  border: 2px solid #ff8000;
 }
 
 .video_inner iframe {
   width: 100%;
-  height: 315px; /* Altura estándar de video en YouTube */
+  height: 315px; 
 }
 
-/* Estilos responsivos */
+/* MEDIA QUERIES */
 @media (max-width: 600px) {
   .titulo_inner {
       font-size: 1.5rem;
@@ -453,7 +438,7 @@ button.accent-button:hover {
     }
  }
   .video_inner iframe {
-      height: 250px; /* Ajusta la altura del video para pantallas más pequeñas */
+      height: 250px; 
   }
 }
 
@@ -475,12 +460,12 @@ button.accent-button:hover {
 
 
 
-
+/* TITULO 2 */
 
 .titulo_inner-2 {
   font-family: "Outfit", sans-serif;
   font-size: 2rem;
-  color: #56262b;
+  color: white;
   margin-bottom: 20px;
   text-align: center;
   width: 100%;
@@ -499,7 +484,7 @@ button.accent-button:hover {
 
 
 
-/* FOOTER */
+/* CONTACTO WHATSAPP */
 
 
 .newsletter-subscribe {
@@ -565,6 +550,26 @@ padding: 20px;
   background-color: #0056b3;
   border-color: #56262b;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* FOOTER */
+
 
 
 
@@ -991,12 +996,10 @@ img {
   margin-bottom: 20px;
 }
 
-.main-container {
-  
-  width: 90%;
-  max-width: 1200px;
-  padding: 20px;
-  border-radius: 8px;
+.main-container-2 {
+  background-color: black;
+  width: 100%;
+
 }
 
 .main-grid {
@@ -1031,6 +1034,7 @@ img {
 
 .main-contact span {
   display: block;
+  color: #888;
   font-weight: bold;
   margin-bottom: 5px;
 }
