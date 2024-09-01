@@ -22,7 +22,7 @@ body {
 }
 
 .main-logo {
-  max-height: 90px; 
+  max-height: 135px; 
   height: auto; 
 }
 
@@ -1147,6 +1147,7 @@ img {
 
 /* Título de la tarjeta */
 .cards_inner h3 {
+  font-family: "Outfit", sans-serif;
   text-align: center;
   margin: 15px 0;
   font-size: 1.5em;
@@ -1191,7 +1192,10 @@ img {
 
 
 
-
+.a-products {
+  color: white;
+  text-decoration: none;
+}
 
 
 
