@@ -22,7 +22,7 @@ body {
 }
 
 .main-logo {
-  max-height: 135px; 
+  max-height: 285px; 
   height: auto; 
 }
 
@@ -33,7 +33,7 @@ body {
   }
 
   .main-logo {
-    max-height: 100px; 
+    max-height: 150px; 
   }
 }
 
