@@ -23,15 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Cambiar la cantidad automáticamente
             const quantityInput = document.querySelector(`.quantity-input[data-product="${productNumber}"]`);
             if (quantityInput) {
-                // Para el producto 1, asegurar que no baje de 10
-                if (productNumber === "1" && parseInt(buttonValue) < 10) {
-                    quantityInput.value = 10;
-                    console.log('🔢 Cantidad ajustada a mínimo 10 para producto 1');
-                }
-                // Para el producto 2, asegurar que no baje de 20
-                else if (productNumber === "2" && parseInt(buttonValue) < 20) {
+                // Para el producto 1, asegurar que no baje de 20
+                if (productNumber === "1" && parseInt(buttonValue) < 20) {
                     quantityInput.value = 20;
-                    console.log('🔢 Cantidad ajustada a mínimo 20 para producto 2');
+                    console.log('🔢 Cantidad ajustada a mínimo 20 para producto 1');
+                }
+                // Para el producto 2, asegurar que no baje de 10
+                else if (productNumber === "2" && parseInt(buttonValue) < 10) {
+                    quantityInput.value = 10;
+                    console.log('🔢 Cantidad ajustada a mínimo 10 para producto 2');
                 } else {
                     quantityInput.value = buttonValue;
                 }
@@ -95,12 +95,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (productNumber === "1") {
                 const comprarBtn = document.querySelector(`.add-to-cart-btn[data-product="1"]`);
                 
-                if (value < 10) {
+                if (value < 20) {
                     comprarBtn.disabled = true;
-                    comprarBtn.textContent = "MÍNIMO 10 UNIDADES";
+                    comprarBtn.textContent = "MÍNIMO 20 UNIDADES";
                     comprarBtn.style.opacity = "0.5";
                     comprarBtn.style.cursor = "not-allowed";
-                    console.log('❌ Botón de comprar desactivado - mínimo 10 unidades');
+                    console.log('❌ Botón de comprar desactivado - mínimo 20 unidades');
                 } else {
                     comprarBtn.disabled = false;
                     comprarBtn.textContent = "COMPRAR";
@@ -113,12 +113,12 @@ document.addEventListener('DOMContentLoaded', function() {
             else if (productNumber === "2") {
                 const comprarBtn = document.querySelector(`.add-to-cart-btn[data-product="2"]`);
                 
-                if (value < 20) {
+                if (value < 10) {
                     comprarBtn.disabled = true;
-                    comprarBtn.textContent = "MÍNIMO 20 UNIDADES";
+                    comprarBtn.textContent = "MÍNIMO 10 UNIDADES";
                     comprarBtn.style.opacity = "0.5";
                     comprarBtn.style.cursor = "not-allowed";
-                    console.log('❌ Botón de comprar desactivado - mínimo 20 unidades');
+                    console.log('❌ Botón de comprar desactivado - mínimo 10 unidades');
                 } else {
                     comprarBtn.disabled = false;
                     comprarBtn.textContent = "COMPRAR";
@@ -143,9 +143,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (comprarBtn1 && quantityInput1) {
         const initialValue = parseInt(quantityInput1.value);
-        if (initialValue < 10) {
+        if (initialValue < 20) {
             comprarBtn1.disabled = true;
-            comprarBtn1.textContent = "MÍNIMO 10 UNIDADES";
+            comprarBtn1.textContent = "MÍNIMO 20 UNIDADES";
             comprarBtn1.style.opacity = "0.5";
             comprarBtn1.style.cursor = "not-allowed";
             console.log('❌ Botón de comprar producto 1 desactivado inicialmente');
@@ -164,9 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (comprarBtn2 && quantityInput2) {
         const initialValue = parseInt(quantityInput2.value);
-        if (initialValue < 20) {
+        if (initialValue < 10) {
             comprarBtn2.disabled = true;
-            comprarBtn2.textContent = "MÍNIMO 20 UNIDADES";
+            comprarBtn2.textContent = "MÍNIMO 10 UNIDADES";
             comprarBtn2.style.opacity = "0.5";
             comprarBtn2.style.cursor = "not-allowed";
             console.log('❌ Botón de comprar producto 2 desactivado inicialmente');
@@ -220,8 +220,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const quantityInput = document.querySelector(`.quantity-input[data-product="1"]`);
                     const cantidad = parseInt(quantityInput.value);
                     
-                    if (cantidad < 10) {
-                        alert('⚠️ El mínimo de compra para este producto es 10 unidades');
+                    if (cantidad < 20) {
+                        alert('⚠️ El mínimo de compra para este producto es 20 unidades');
                         console.log('❌ Compra bloqueada - cantidad insuficiente');
                         return;
                     }
@@ -231,8 +231,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const quantityInput = document.querySelector(`.quantity-input[data-product="2"]`);
                     const cantidad = parseInt(quantityInput.value);
                     
-                    if (cantidad < 20) {
-                        alert('⚠️ El mínimo de compra para este producto es 20 unidades');
+                    if (cantidad < 10) {
+                        alert('⚠️ El mínimo de compra para este producto es 10 unidades');
                         console.log('❌ Compra bloqueada - cantidad insuficiente');
                         return;
                     }
