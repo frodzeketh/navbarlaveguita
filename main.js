@@ -22,3 +22,52 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Funcionalidad para botones de comprar con WhatsApp
+document.addEventListener('DOMContentLoaded', function() {
+    // Configuración de productos
+    const productos = {
+        1: {
+            nombre: "Carbón Quebracho Colorado Bolsa Premium 2.5kg",
+            telefono: "56988396185"
+        },
+        2: {
+            nombre: "Saco de Carbón Quebracho Blanco Premium 20kg", 
+            telefono: "56988396185"
+        }
+    };
+
+    // Agregar event listeners a todos los botones de comprar
+    const botonesComprar = document.querySelectorAll('.add-to-cart-btn');
+    
+    botonesComprar.forEach(boton => {
+        boton.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product');
+            
+            if (productId && productos[productId]) {
+                // Obtener la cantidad seleccionada
+                const quantityInput = document.querySelector(`.quantity-input[data-product="${productId}"]`);
+                const cantidad = quantityInput ? quantityInput.value : 1;
+                
+                // Obtener datos del producto
+                const producto = productos[productId];
+                
+                // Crear el mensaje de WhatsApp
+                const mensaje = `Hola, quiero comprar ${producto.nombre}
+
+Cantidad: ${cantidad}
+
+Gracias`;
+
+                // Codificar el mensaje para URL
+                const mensajeCodificado = encodeURIComponent(mensaje);
+                
+                // Crear la URL de WhatsApp
+                const urlWhatsApp = `https://wa.me/${producto.telefono}?text=${mensajeCodificado}`;
+                
+                // Abrir WhatsApp en una nueva ventana/tab
+                window.open(urlWhatsApp, '_blank');
+            }
+        });
+    });
+});
