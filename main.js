@@ -309,29 +309,14 @@ Gracias`;
     console.log('🚀 ¡Todo configurado correctamente!');
     
     // ========================================
-    // CONTADOR DE VISITAS
+    // CONTADOR DE VISITAS GLOBAL CON FIREBASE
     // ========================================
-    console.log('👥 Configurando contador de visitas...');
-    
-    // Función para obtener el contador de visitas del localStorage
-    function getVisitorCount() {
-        const count = localStorage.getItem('visitorCount');
-        return count ? parseInt(count) : 0;
-    }
-    
-    // Función para incrementar el contador de visitas
-    function incrementVisitorCount() {
-        const currentCount = getVisitorCount();
-        const newCount = currentCount + 1;
-        localStorage.setItem('visitorCount', newCount.toString());
-        return newCount;
-    }
+    console.log('👥 Configurando contador de visitas global...');
     
     // Función para actualizar el display del contador
-    function updateVisitorDisplay() {
+    function updateVisitorDisplay(count) {
         const visitorCountElement = document.getElementById('visitor-count');
         if (visitorCountElement) {
-            const count = getVisitorCount();
             visitorCountElement.textContent = count.toLocaleString('es-CL');
             console.log('👥 Contador de visitas actualizado:', count);
         } else {
@@ -339,9 +324,71 @@ Gracias`;
         }
     }
     
-    // Incrementar contador y actualizar display
-    const newCount = incrementVisitorCount();
-    updateVisitorDisplay();
+    // Función para incrementar el contador global
+    function incrementGlobalVisitorCount() {
+        const visitorRef = database.ref('visitorCount');
+        
+        // Incrementar el contador en Firebase
+        visitorRef.transaction((currentCount) => {
+            return (currentCount || 0) + 1;
+        }, (error, committed, snapshot) => {
+            if (error) {
+                console.error('❌ Error al incrementar contador:', error);
+                // Fallback: mostrar contador local si Firebase falla
+                const localCount = localStorage.getItem('visitorCount') || 0;
+                updateVisitorDisplay(parseInt(localCount) + 1);
+            } else if (committed) {
+                console.log('✅ Contador global incrementado correctamente');
+                // Actualizar display con el nuevo valor
+                updateVisitorDisplay(snapshot.val());
+            }
+        });
+    }
     
-    console.log('✅ Contador de visitas configurado correctamente');
+    // Función para obtener el contador actual
+    function getCurrentVisitorCount() {
+        const visitorRef = database.ref('visitorCount');
+        
+        visitorRef.once('value')
+            .then((snapshot) => {
+                const count = snapshot.val() || 0;
+                updateVisitorDisplay(count);
+                console.log('👥 Contador actual cargado:', count);
+            })
+            .catch((error) => {
+                console.error('❌ Error al cargar contador:', error);
+                // Fallback: mostrar contador local
+                const localCount = localStorage.getItem('visitorCount') || 0;
+                updateVisitorDisplay(parseInt(localCount));
+            });
+    }
+    
+    // Escuchar cambios en tiempo real
+    function listenToVisitorCount() {
+        const visitorRef = database.ref('visitorCount');
+        
+        visitorRef.on('value', (snapshot) => {
+            const count = snapshot.val() || 0;
+            updateVisitorDisplay(count);
+            console.log('👥 Contador actualizado en tiempo real:', count);
+        });
+    }
+    
+    // Inicializar contador global
+    try {
+        // Escuchar cambios en tiempo real
+        listenToVisitorCount();
+        
+        // Incrementar contador global
+        incrementGlobalVisitorCount();
+        
+        console.log('✅ Contador de visitas global configurado correctamente');
+    } catch (error) {
+        console.error('❌ Error al configurar Firebase:', error);
+        // Fallback: usar contador local
+        const localCount = parseInt(localStorage.getItem('visitorCount') || 0) + 1;
+        localStorage.setItem('visitorCount', localCount.toString());
+        updateVisitorDisplay(localCount);
+        console.log('🔄 Usando contador local como fallback');
+    }
 });
