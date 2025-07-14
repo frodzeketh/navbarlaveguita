@@ -23,8 +23,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Cambiar la cantidad automáticamente
             const quantityInput = document.querySelector(`.quantity-input[data-product="${productNumber}"]`);
             if (quantityInput) {
-                quantityInput.value = buttonValue;
-                console.log('🔢 Quantity changed to:', buttonValue, 'for product:', productNumber);
+                // Para el producto 2, asegurar que no baje de 20
+                if (productNumber === "2" && parseInt(buttonValue) < 20) {
+                    quantityInput.value = 20;
+                    console.log('🔢 Cantidad ajustada a mínimo 20 para producto 2');
+                } else {
+                    quantityInput.value = buttonValue;
+                }
+                console.log('🔢 Quantity changed to:', quantityInput.value, 'for product:', productNumber);
             } else {
                 console.error('❌ Quantity input not found for product:', productNumber);
             }
@@ -69,11 +75,21 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('📊 Configurando inputs de cantidad...');
     document.querySelectorAll('.quantity-input').forEach(input => {
         input.addEventListener('input', function() {
-            console.log('📊 Quantity input changed manually:', this.value, 'Product:', this.getAttribute('data-product'));
+            const productNumber = this.getAttribute('data-product');
+            let value = parseInt(this.value);
+            
+            console.log('📊 Quantity input changed manually:', value, 'Product:', productNumber);
+            
+            // Para el producto 2, validar mínimo de 20
+            if (productNumber === "2") {
+                if (value < 20) {
+                    this.value = 20;
+                    value = 20;
+                    console.log('⚠️ Cantidad ajustada a mínimo 20 para producto 2');
+                }
+            }
             
             // Obtener el número de producto de este input
-            const productNumber = this.getAttribute('data-product');
-            
             // Remover clase active de todos los botones de tamaño DE LA MISMA SECCIÓN
             document.querySelectorAll(`.size-btn[data-product="${productNumber}"]`).forEach(btn => {
                 btn.classList.remove('active');
