@@ -30,6 +30,10 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  /* Mejoras para móviles */
+  -webkit-playsinline: true;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .header-overlay {
