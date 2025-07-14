@@ -76,18 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.quantity-input').forEach(input => {
         input.addEventListener('input', function() {
             const productNumber = this.getAttribute('data-product');
-            let value = parseInt(this.value);
+            const value = parseInt(this.value) || 0;
             
             console.log('📊 Quantity input changed manually:', value, 'Product:', productNumber);
-            
-            // Para el producto 2, validar mínimo de 20
-            if (productNumber === "2") {
-                if (value < 20) {
-                    this.value = 20;
-                    value = 20;
-                    console.log('⚠️ Cantidad ajustada a mínimo 20 para producto 2');
-                }
-            }
             
             // Obtener el número de producto de este input
             // Remover clase active de todos los botones de tamaño DE LA MISMA SECCIÓN
@@ -95,9 +86,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.classList.remove('active');
             });
             
+            // Validar botón de comprar para producto 2
+            if (productNumber === "2") {
+                const comprarBtn = document.querySelector(`.add-to-cart-btn[data-product="2"]`);
+                
+                if (value < 20) {
+                    comprarBtn.disabled = true;
+                    comprarBtn.textContent = "MÍNIMO 20 UNIDADES";
+                    comprarBtn.style.opacity = "0.5";
+                    comprarBtn.style.cursor = "not-allowed";
+                    console.log('❌ Botón de comprar desactivado - mínimo 20 unidades');
+                } else {
+                    comprarBtn.disabled = false;
+                    comprarBtn.textContent = "COMPRAR";
+                    comprarBtn.style.opacity = "1";
+                    comprarBtn.style.cursor = "pointer";
+                    console.log('✅ Botón de comprar activado');
+                }
+            }
+            
             console.log('📊 Size buttons deactivated for product:', productNumber);
         });
     });
+
+    // ========================================
+    // VALIDACIÓN INICIAL PARA BOTONES DE COMPRAR
+    // ========================================
+    console.log('🔍 Validando configuración inicial de botones...');
+    
+    // Validar botón de comprar del producto 2 al cargar
+    const comprarBtn2 = document.querySelector('.add-to-cart-btn[data-product="2"]');
+    const quantityInput2 = document.querySelector('.quantity-input[data-product="2"]');
+    
+    if (comprarBtn2 && quantityInput2) {
+        const initialValue = parseInt(quantityInput2.value);
+        if (initialValue < 20) {
+            comprarBtn2.disabled = true;
+            comprarBtn2.textContent = "MÍNIMO 20 UNIDADES";
+            comprarBtn2.style.opacity = "0.5";
+            comprarBtn2.style.cursor = "not-allowed";
+            console.log('❌ Botón de comprar producto 2 desactivado inicialmente');
+        } else {
+            comprarBtn2.disabled = false;
+            comprarBtn2.textContent = "COMPRAR";
+            comprarBtn2.style.opacity = "1";
+            comprarBtn2.style.cursor = "pointer";
+            console.log('✅ Botón de comprar producto 2 activado inicialmente');
+        }
+    }
 
     // ========================================
     // FUNCIONALIDAD PARA BOTONES DE COMPRAR CON WHATSAPP
@@ -134,6 +170,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 const productId = this.getAttribute('data-product');
                 console.log('🆔 Product ID:', productId);
+                
+                // Validación adicional para producto 2
+                if (productId === "2") {
+                    const quantityInput = document.querySelector(`.quantity-input[data-product="2"]`);
+                    const cantidad = parseInt(quantityInput.value);
+                    
+                    if (cantidad < 20) {
+                        alert('⚠️ El mínimo de compra para este producto es 20 unidades');
+                        console.log('❌ Compra bloqueada - cantidad insuficiente');
+                        return;
+                    }
+                }
                 
                 if (productId && productos[productId]) {
                     // Obtener la cantidad seleccionada
