@@ -1092,3 +1092,39 @@ body {
       font-size: 1.2rem;
   }
 }
+
+/* Contador de visitas */
+.visitor-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
+  padding: 8px 16px;
+  background-color: #f8f9fa;
+  border-radius: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.visitor-counter i {
+  color: #FF7C28;
+  font-size: 1rem;
+}
+
+.visitor-counter span {
+  font-weight: 600;
+  color: #FF7C28;
+}
+
+@media (max-width: 768px) {
+  .visitor-counter {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+  
+  .visitor-counter i {
+    font-size: 0.9rem;
+  }
+}

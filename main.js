@@ -23,8 +23,13 @@ document.addEventListener('DOMContentLoaded', function() {
             // Cambiar la cantidad automáticamente
             const quantityInput = document.querySelector(`.quantity-input[data-product="${productNumber}"]`);
             if (quantityInput) {
+                // Para el producto 1, asegurar que no baje de 10
+                if (productNumber === "1" && parseInt(buttonValue) < 10) {
+                    quantityInput.value = 10;
+                    console.log('🔢 Cantidad ajustada a mínimo 10 para producto 1');
+                }
                 // Para el producto 2, asegurar que no baje de 20
-                if (productNumber === "2" && parseInt(buttonValue) < 20) {
+                else if (productNumber === "2" && parseInt(buttonValue) < 20) {
                     quantityInput.value = 20;
                     console.log('🔢 Cantidad ajustada a mínimo 20 para producto 2');
                 } else {
@@ -86,8 +91,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.classList.remove('active');
             });
             
+            // Validar botón de comprar para producto 1
+            if (productNumber === "1") {
+                const comprarBtn = document.querySelector(`.add-to-cart-btn[data-product="1"]`);
+                
+                if (value < 10) {
+                    comprarBtn.disabled = true;
+                    comprarBtn.textContent = "MÍNIMO 10 UNIDADES";
+                    comprarBtn.style.opacity = "0.5";
+                    comprarBtn.style.cursor = "not-allowed";
+                    console.log('❌ Botón de comprar desactivado - mínimo 10 unidades');
+                } else {
+                    comprarBtn.disabled = false;
+                    comprarBtn.textContent = "COMPRAR";
+                    comprarBtn.style.opacity = "1";
+                    comprarBtn.style.cursor = "pointer";
+                    console.log('✅ Botón de comprar activado');
+                }
+            }
             // Validar botón de comprar para producto 2
-            if (productNumber === "2") {
+            else if (productNumber === "2") {
                 const comprarBtn = document.querySelector(`.add-to-cart-btn[data-product="2"]`);
                 
                 if (value < 20) {
@@ -113,6 +136,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // VALIDACIÓN INICIAL PARA BOTONES DE COMPRAR
     // ========================================
     console.log('🔍 Validando configuración inicial de botones...');
+    
+    // Validar botón de comprar del producto 1 al cargar
+    const comprarBtn1 = document.querySelector('.add-to-cart-btn[data-product="1"]');
+    const quantityInput1 = document.querySelector('.quantity-input[data-product="1"]');
+    
+    if (comprarBtn1 && quantityInput1) {
+        const initialValue = parseInt(quantityInput1.value);
+        if (initialValue < 10) {
+            comprarBtn1.disabled = true;
+            comprarBtn1.textContent = "MÍNIMO 10 UNIDADES";
+            comprarBtn1.style.opacity = "0.5";
+            comprarBtn1.style.cursor = "not-allowed";
+            console.log('❌ Botón de comprar producto 1 desactivado inicialmente');
+        } else {
+            comprarBtn1.disabled = false;
+            comprarBtn1.textContent = "COMPRAR";
+            comprarBtn1.style.opacity = "1";
+            comprarBtn1.style.cursor = "pointer";
+            console.log('✅ Botón de comprar producto 1 activado inicialmente');
+        }
+    }
     
     // Validar botón de comprar del producto 2 al cargar
     const comprarBtn2 = document.querySelector('.add-to-cart-btn[data-product="2"]');
@@ -171,8 +215,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 const productId = this.getAttribute('data-product');
                 console.log('🆔 Product ID:', productId);
                 
+                // Validación adicional para producto 1
+                if (productId === "1") {
+                    const quantityInput = document.querySelector(`.quantity-input[data-product="1"]`);
+                    const cantidad = parseInt(quantityInput.value);
+                    
+                    if (cantidad < 10) {
+                        alert('⚠️ El mínimo de compra para este producto es 10 unidades');
+                        console.log('❌ Compra bloqueada - cantidad insuficiente');
+                        return;
+                    }
+                }
                 // Validación adicional para producto 2
-                if (productId === "2") {
+                else if (productId === "2") {
                     const quantityInput = document.querySelector(`.quantity-input[data-product="2"]`);
                     const cantidad = parseInt(quantityInput.value);
                     
@@ -252,4 +307,41 @@ Gracias`;
     console.log('📊 Quantity inputs:', document.querySelectorAll('.quantity-input').length);
     console.log('🛒 Botones de comprar:', document.querySelectorAll('.add-to-cart-btn').length);
     console.log('🚀 ¡Todo configurado correctamente!');
+    
+    // ========================================
+    // CONTADOR DE VISITAS
+    // ========================================
+    console.log('👥 Configurando contador de visitas...');
+    
+    // Función para obtener el contador de visitas del localStorage
+    function getVisitorCount() {
+        const count = localStorage.getItem('visitorCount');
+        return count ? parseInt(count) : 0;
+    }
+    
+    // Función para incrementar el contador de visitas
+    function incrementVisitorCount() {
+        const currentCount = getVisitorCount();
+        const newCount = currentCount + 1;
+        localStorage.setItem('visitorCount', newCount.toString());
+        return newCount;
+    }
+    
+    // Función para actualizar el display del contador
+    function updateVisitorDisplay() {
+        const visitorCountElement = document.getElementById('visitor-count');
+        if (visitorCountElement) {
+            const count = getVisitorCount();
+            visitorCountElement.textContent = count.toLocaleString('es-CL');
+            console.log('👥 Contador de visitas actualizado:', count);
+        } else {
+            console.error('❌ Elemento contador de visitas no encontrado');
+        }
+    }
+    
+    // Incrementar contador y actualizar display
+    const newCount = incrementVisitorCount();
+    updateVisitorDisplay();
+    
+    console.log('✅ Contador de visitas configurado correctamente');
 });
