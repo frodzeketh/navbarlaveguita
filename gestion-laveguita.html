@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Gestión | La Veguita</title>
+    <link rel="icon" href="./img/logo333.png" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: #f4f4f4; color: #333; min-height: 100vh; }
+
+        .login-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .login-card {
+            background: #fff; border-radius: 16px; padding: 45px 40px; width: 100%; max-width: 400px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08); border: 1px solid #e8e8e8;
+        }
+        .login-logo { display: block; margin: 0 auto 20px; height: 75px; }
+        .login-card h1 { color: #333; font-size: 1.4rem; margin-bottom: 4px; text-align: center; font-weight: 600; }
+        .login-card .login-subtitle { color: #999; text-align: center; margin-bottom: 28px; font-size: 0.85rem; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; color: #666; font-size: 0.8rem; margin-bottom: 5px; font-weight: 500; }
+        .form-group input {
+            width: 100%; padding: 11px 14px; background: #f9f9f9; border: 1px solid #ddd;
+            border-radius: 8px; color: #333; font-size: 0.95rem; font-family: 'Poppins', sans-serif;
+        }
+        .form-group input:focus { outline: none; border-color: #FF7C28; background: #fff; }
+        .btn-login {
+            width: 100%; padding: 13px; background: #FF7C28; border: none; border-radius: 8px;
+            color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif;
+            display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s;
+        }
+        .btn-login:hover { background: #e56b1f; }
+        .btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
+        .login-error { color: #e53935; text-align: center; margin-top: 14px; font-size: 0.83rem; min-height: 20px; }
+
+        .admin-panel { display: none; }
+        .admin-header {
+            background: #fff; padding: 14px 30px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #e8e8e8; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .admin-header-left { display: flex; align-items: center; gap: 12px; }
+        .admin-header-left img { height: 36px; }
+        .admin-header h2 { color: #333; font-size: 1.1rem; font-weight: 600; }
+        .admin-header .user-info { display: flex; align-items: center; gap: 14px; }
+        .admin-header .user-email { color: #999; font-size: 0.8rem; }
+        .btn-logout {
+            padding: 7px 16px; background: #fff; border: 1px solid #ddd; border-radius: 6px;
+            color: #666; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 0.8rem;
+        }
+        .btn-logout:hover { border-color: #e53935; color: #e53935; }
+        .btn-go-web {
+            padding: 7px 16px; background: #FF7C28; border: none; border-radius: 6px;
+            color: #fff; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 0.8rem;
+            text-decoration: none; display: flex; align-items: center; gap: 6px; font-weight: 500;
+        }
+        .btn-go-web:hover { background: #e56b1f; }
+
+        .admin-content { max-width: 800px; margin: 28px auto; padding: 0 20px 40px; }
+
+        .setup-banner {
+            background: #fff8f0; border: 1px solid #ffd9b3; border-radius: 10px;
+            padding: 20px 24px; margin-bottom: 24px; display: none;
+        }
+        .setup-banner h4 { color: #FF7C28; margin-bottom: 8px; font-size: 0.95rem; }
+        .setup-banner p { color: #888; font-size: 0.84rem; margin-bottom: 14px; }
+        .btn-init {
+            padding: 10px 22px; background: #FF7C28; border: none; border-radius: 6px;
+            color: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif;
+        }
+        .btn-init:hover { background: #e56b1f; }
+
+        .product-card {
+            background: #fff; border-radius: 12px; margin-bottom: 20px;
+            border: 1px solid #e8e8e8; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .product-card-header {
+            padding: 16px 24px; border-bottom: 1px solid #f0f0f0; background: #fafafa;
+        }
+        .product-card-header h4 { color: #333; font-size: 0.95rem; font-weight: 600; }
+        .product-card-body { padding: 0; }
+
+        /* ===== FILAS EDITABLES INLINE ===== */
+        .field-row {
+            display: flex; align-items: center; padding: 14px 24px;
+            border-bottom: 1px solid #f3f3f3; min-height: 56px;
+        }
+        .field-row:last-child { border-bottom: none; }
+        .field-label {
+            color: #999; font-size: 0.78rem; font-weight: 500; text-transform: uppercase;
+            letter-spacing: 0.3px; width: 170px; flex-shrink: 0;
+        }
+        .field-display {
+            flex: 1; display: flex; align-items: center; gap: 8px;
+        }
+        .field-text {
+            color: #333; font-size: 0.95rem; font-weight: 500;
+        }
+        .field-text.price { color: #FF7C28; font-size: 1.15rem; font-weight: 600; }
+        .field-text .mayor-pill {
+            display: inline-block; padding: 4px 14px; background: #f5f5f5;
+            border: 1px solid #e0e0e0; border-radius: 4px; font-size: 0.85rem; margin-right: 6px;
+        }
+
+        .field-actions { margin-left: auto; flex-shrink: 0; padding-left: 12px; }
+        .btn-field-edit {
+            width: 32px; height: 32px; border-radius: 6px; border: 1px solid #e0e0e0;
+            background: #fff; color: #999; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; font-size: 0.75rem; transition: all 0.15s;
+        }
+        .btn-field-edit:hover { border-color: #FF7C28; color: #FF7C28; }
+
+        .field-editing { display: none; flex: 1; align-items: center; gap: 8px; }
+        .field-editing input {
+            flex: 1; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px;
+            font-size: 0.92rem; font-family: 'Poppins', sans-serif; color: #333; background: #f9f9f9;
+            max-width: 200px;
+        }
+        .field-editing input:focus { outline: none; border-color: #FF7C28; background: #fff; }
+        .field-editing .price-wrap {
+            display: flex; align-items: center; border: 1px solid #ddd; border-radius: 6px;
+            background: #f9f9f9; overflow: hidden; max-width: 200px; flex: 1;
+        }
+        .field-editing .price-wrap:focus-within { border-color: #FF7C28; background: #fff; }
+        .field-editing .price-wrap span {
+            padding: 8px 0 8px 12px; color: #FF7C28; font-weight: 600; font-size: 0.95rem; user-select: none;
+        }
+        .field-editing .price-wrap input {
+            border: none !important; background: transparent !important; padding-left: 4px !important;
+            border-radius: 0 !important; max-width: none;
+        }
+        .field-editing .mayor-inputs { display: flex; gap: 6px; }
+        .field-editing .mayor-inputs input { max-width: 80px; text-align: center; }
+
+        .btn-confirm, .btn-discard {
+            width: 32px; height: 32px; border-radius: 6px; border: none;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; transition: all 0.15s; flex-shrink: 0;
+        }
+        .btn-confirm { background: #e8f5e9; color: #2e7d32; }
+        .btn-confirm:hover { background: #c8e6c9; }
+        .btn-discard { background: #ffebee; color: #c62828; }
+        .btn-discard:hover { background: #ffcdd2; }
+
+        .toast {
+            position: fixed; bottom: 30px; right: 30px; padding: 14px 22px; border-radius: 8px;
+            font-size: 0.88rem; font-weight: 500; z-index: 1000; transform: translateY(100px);
+            opacity: 0; transition: all 0.4s ease; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { background: #fff; color: #2e7d32; border: 1px solid #c8e6c9; }
+        .toast.error { background: #fff; color: #c62828; border: 1px solid #ffcdd2; }
+
+        @media (max-width: 640px) {
+            .field-row { flex-wrap: wrap; padding: 12px 18px; gap: 6px; }
+            .field-label { width: 100%; }
+            .field-editing input { max-width: none; }
+            .field-editing .mayor-inputs input { max-width: 70px; }
+            .field-editing .price-wrap { max-width: none; }
+            .admin-header { flex-direction: column; gap: 10px; padding: 12px 16px; }
+            .admin-header .user-info { flex-direction: column; gap: 6px; }
+            .login-card { padding: 30px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN -->
+    <div id="login-screen" class="login-container">
+        <div class="login-card">
+            <img src="./img/carbonlogo2.png" alt="La Veguita" class="login-logo">
+            <h1>Panel de Gestión</h1>
+            <p class="login-subtitle">Ingresa con tu cuenta de administrador</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Correo electrónico</label>
+                    <input type="email" id="login-email" required placeholder="correo@ejemplo.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn-login" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Ingresar
+                </button>
+            </form>
+            <div id="login-error" class="login-error"></div>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="admin-panel" class="admin-panel">
+        <div class="admin-header">
+            <div class="admin-header-left">
+                <img src="./img/carbonlogo2.png" alt="La Veguita">
+                <h2>Gestión de Productos</h2>
+            </div>
+            <div class="user-info">
+                <a href="./index.html" target="_blank" class="btn-go-web"><i class="fas fa-external-link-alt"></i> Ir a web</a>
+                <span class="user-email" id="user-email"></span>
+                <button class="btn-logout" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
+            </div>
+        </div>
+
+        <div class="admin-content">
+            <div class="setup-banner" id="setup-banner">
+                <h4><i class="fas fa-info-circle"></i> Primera configuración</h4>
+                <p>No hay datos de productos en la base de datos. Haz clic para cargar los valores actuales del sitio.</p>
+                <button class="btn-init" onclick="initializeProducts()"><i class="fas fa-database"></i> Inicializar datos</button>
+            </div>
+
+            <!-- PRODUCTO 1 -->
+            <div class="product-card" data-id="1">
+                <div class="product-card-header">
+                    <h4 id="header-name-1">Carbón Quebracho Colorado Bolsa Premium 2.5kg</h4>
+                </div>
+                <div class="product-card-body">
+                    <!-- Nombre -->
+                    <div class="field-row" data-field="nombre" data-product="1">
+                        <span class="field-label">Nombre</span>
+                        <div class="field-display">
+                            <span class="field-text" id="val-nombre-1">Carbón Quebracho Colorado Bolsa Premium 2.5kg</span>
+                        </div>
+                        <div class="field-editing">
+                            <input type="text" id="input-nombre-1">
+                            <button class="btn-confirm" onclick="saveField('1','nombre')"><i class="fas fa-check"></i></button>
+                            <button class="btn-discard" onclick="cancelField('1','nombre')"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="field-actions">
+                            <button class="btn-field-edit" onclick="editField('1','nombre')"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <!-- Precio -->
+                    <div class="field-row" data-field="precio" data-product="1">
+                        <span class="field-label">Precio</span>
+                        <div class="field-display">
+                            <span class="field-text price" id="val-precio-1">$1.850</span>
+                        </div>
+                        <div class="field-editing">
+                            <div class="price-wrap">
+                                <span>$</span>
+                                <input type="text" id="input-precio-1" placeholder="1.850">
+                            </div>
+                            <button class="btn-confirm" onclick="saveField('1','precio')"><i class="fas fa-check"></i></button>
+                            <button class="btn-discard" onclick="cancelField('1','precio')"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="field-actions">
+                            <button class="btn-field-edit" onclick="editField('1','precio')"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <!-- Por mayor -->
+                    <div class="field-row" data-field="mayor" data-product="1">
+                        <span class="field-label">Por mayor</span>
+                        <div class="field-display">
+                            <span class="field-text"><span class="mayor-pill" id="val-mayor1-1">20</span><span class="mayor-pill" id="val-mayor2-1">50</span></span>
+                        </div>
+                        <div class="field-editing">
+                            <div class="mayor-inputs">
+                                <input type="number" id="input-mayor1-1" min="1">
+                                <input type="number" id="input-mayor2-1" min="1">
+                            </div>
+                            <button class="btn-confirm" onclick="saveField('1','mayor')"><i class="fas fa-check"></i></button>
+                            <button class="btn-discard" onclick="cancelField('1','mayor')"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="field-actions">
+                            <button class="btn-field-edit" onclick="editField('1','mayor')"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <!-- Cantidad mínima -->
+                    <div class="field-row" data-field="minimo" data-product="1">
+                        <span class="field-label">Cantidad mínima</span>
+                        <div class="field-display">
+                            <span class="field-text"><span id="val-minimo-1">20</span> unidades</span>
+                        </div>
+                        <div class="field-editing">
+                            <input type="number" id="input-minimo-1" min="1">
+                            <button class="btn-confirm" onclick="saveField('1','minimo')"><i class="fas fa-check"></i></button>
+                            <button class="btn-discard" onclick="cancelField('1','minimo')"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="field-actions">
+                            <button class="btn-field-edit" onclick="editField('1','minimo')"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <!-- Cantidad por defecto -->
+                    <div class="field-row" data-field="default" data-product="1">
+                        <span class="field-label">Cantidad por defecto</span>
+                        <div class="field-display">
+                            <span class="field-text"><span id="val-default-1">20</span> unidades</span>
+                        </div>
+                        <div class="field-editing">
+                            <input type="number" id="input-default-1" min="1">
+                            <button class="btn-confirm" onclick="saveField('1','default')"><i class="fas fa-check"></i></button>
+                            <button class="btn-discard" onclick="cancelField('1','default')"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="field-actions">
+                            <button class="btn-field-edit" onclick="editField('1','default')"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 2 -->
+            <div class="product-card" data-id="2">
+                <div class="product-card-header">
+                    <h4 id="header-name-2">Saco de Carbón Quebracho Blanco Premium 20kg</h4>
+                </div>
+                <div class="product-card-body">
+                    <!-- Nombre -->
+                    <div class="field-row" data-field="nombre" data-product="2">
+                        <span class="field-label">Nombre</span>
+                        <div class="field-display">
+                            <span class="field-text" id="val-nombre-2">Saco de Carbón Quebracho Blanco Premium 20kg</span>
+                        </div>
+                        <div class="field-editing">
+                            <input type="text" id="input-nombre-2">
+                            <button class="btn-confirm" onclick="saveField('2','nombre')"><i class="fas fa-check"></i></button>
+                            <button class="btn-discard" onclick="cancelField('2','nombre')"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="field-actions">
+                            <button class="btn-field-edit" onclick="editField('2','nombre')"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <!-- Precio -->
+                    <div class="field-row" data-field="precio" data-product="2">
+                        <span class="field-label">Precio</span>
+                        <div class="field-display">
+                            <span class="field-text price" id="val-precio-2">$20.000</span>
+                        </div>
+                        <div class="field-editing">
+                            <div class="price-wrap">
+                                <span>$</span>
+                                <input type="text" id="input-precio-2" placeholder="20.000">
+                            </div>
+                            <button class="btn-confirm" onclick="saveField('2','precio')"><i class="fas fa-check"></i></button>
+                            <button class="btn-discard" onclick="cancelField('2','precio')"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="field-actions">
+                            <button class="btn-field-edit" onclick="editField('2','precio')"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <!-- Por mayor -->
+                    <div class="field-row" data-field="mayor" data-product="2">
+                        <span class="field-label">Por mayor</span>
+                        <div class="field-display">
+                            <span class="field-text"><span class="mayor-pill" id="val-mayor1-2">10</span><span class="mayor-pill" id="val-mayor2-2">50</span></span>
+                        </div>
+                        <div class="field-editing">
+                            <div class="mayor-inputs">
+                                <input type="number" id="input-mayor1-2" min="1">
+                                <input type="number" id="input-mayor2-2" min="1">
+                            </div>
+                            <button class="btn-confirm" onclick="saveField('2','mayor')"><i class="fas fa-check"></i></button>
+                            <button class="btn-discard" onclick="cancelField('2','mayor')"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="field-actions">
+                            <button class="btn-field-edit" onclick="editField('2','mayor')"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <!-- Cantidad mínima -->
+                    <div class="field-row" data-field="minimo" data-product="2">
+                        <span class="field-label">Cantidad mínima</span>
+                        <div class="field-display">
+                            <span class="field-text"><span id="val-minimo-2">10</span> unidades</span>
+                        </div>
+                        <div class="field-editing">
+                            <input type="number" id="input-minimo-2" min="1">
+                            <button class="btn-confirm" onclick="saveField('2','minimo')"><i class="fas fa-check"></i></button>
+                            <button class="btn-discard" onclick="cancelField('2','minimo')"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="field-actions">
+                            <button class="btn-field-edit" onclick="editField('2','minimo')"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <!-- Cantidad por defecto -->
+                    <div class="field-row" data-field="default" data-product="2">
+                        <span class="field-label">Cantidad por defecto</span>
+                        <div class="field-display">
+                            <span class="field-text"><span id="val-default-2">10</span> unidades</span>
+                        </div>
+                        <div class="field-editing">
+                            <input type="number" id="input-default-2" min="1">
+                            <button class="btn-confirm" onclick="saveField('2','default')"><i class="fas fa-check"></i></button>
+                            <button class="btn-discard" onclick="cancelField('2','default')"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="field-actions">
+                            <button class="btn-field-edit" onclick="editField('2','default')"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+
+    <script>
+        var auth = firebase.auth();
+        var productData = {};
+
+        function showToast(msg, type) {
+            var t = document.getElementById('toast');
+            t.innerHTML = '<i class="fas fa-' + (type === 'success' ? 'check-circle' : 'exclamation-circle') + '"></i> ' + msg;
+            t.className = 'toast ' + type;
+            setTimeout(function() { t.classList.add('show'); }, 10);
+            setTimeout(function() { t.classList.remove('show'); }, 3500);
+        }
+
+        // AUTH
+        auth.onAuthStateChanged(function(user) {
+            if (user) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                document.getElementById('user-email').textContent = user.email;
+                loadProductData();
+            } else {
+                document.getElementById('login-screen').style.display = 'flex';
+                document.getElementById('admin-panel').style.display = 'none';
+            }
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var email = document.getElementById('login-email').value;
+            var password = document.getElementById('login-password').value;
+            var errorEl = document.getElementById('login-error');
+            var btn = document.getElementById('login-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Ingresando...';
+            errorEl.textContent = '';
+            auth.signInWithEmailAndPassword(email, password)
+                .catch(function(error) {
+                    var m = {
+                        'auth/user-not-found': 'Correo no registrado',
+                        'auth/wrong-password': 'Contraseña incorrecta',
+                        'auth/invalid-credential': 'Correo o contraseña incorrectos',
+                        'auth/too-many-requests': 'Demasiados intentos',
+                        'auth/invalid-email': 'Correo inválido'
+                    };
+                    errorEl.textContent = m[error.code] || 'Error al iniciar sesión';
+                })
+                .finally(function() {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Ingresar';
+                });
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', function() { auth.signOut(); });
+
+        // LOAD DATA
+        function loadProductData() {
+            db.collection('productos').onSnapshot(function(snapshot) {
+                if (!snapshot.empty) {
+                    document.getElementById('setup-banner').style.display = 'none';
+                    snapshot.forEach(function(doc) {
+                        var id = doc.id;
+                        if (id !== '1' && id !== '2') return;
+                        var d = doc.data();
+                        productData[id] = d;
+                        fillView(id, d);
+                    });
+                } else {
+                    document.getElementById('setup-banner').style.display = 'block';
+                }
+            });
+        }
+
+        function fillView(id, d) {
+            var precio = d.precio || '';
+            if (precio && precio.charAt(0) !== '$') precio = '$' + precio;
+            var opc = Array.isArray(d.opcionesMayor) ? d.opcionesMayor : Object.values(d.opcionesMayor || {});
+
+            document.getElementById('header-name-' + id).textContent = d.nombre;
+            document.getElementById('val-nombre-' + id).textContent = d.nombre;
+            document.getElementById('val-precio-' + id).textContent = precio;
+            document.getElementById('val-mayor1-' + id).textContent = opc[0] || '';
+            document.getElementById('val-mayor2-' + id).textContent = opc[1] || '';
+            document.getElementById('val-minimo-' + id).textContent = d.cantidadMinima;
+            document.getElementById('val-default-' + id).textContent = d.cantidadDefault;
+        }
+
+        function getCurrentData(id) {
+            if (productData[id]) return productData[id];
+            return {
+                nombre: document.getElementById('val-nombre-' + id).textContent,
+                precio: document.getElementById('val-precio-' + id).textContent,
+                cantidadMinima: parseInt(document.getElementById('val-minimo-' + id).textContent) || 1,
+                cantidadDefault: parseInt(document.getElementById('val-default-' + id).textContent) || 1,
+                opcionesMayor: [
+                    parseInt(document.getElementById('val-mayor1-' + id).textContent) || 1,
+                    parseInt(document.getElementById('val-mayor2-' + id).textContent) || 1
+                ],
+                telefono: "56988396185"
+            };
+        }
+
+        function editField(id, field) {
+            var row = document.querySelector('.field-row[data-product="' + id + '"][data-field="' + field + '"]');
+            row.querySelector('.field-display').style.display = 'none';
+            row.querySelector('.field-actions').style.display = 'none';
+            row.querySelector('.field-editing').style.display = 'flex';
+
+            var d = getCurrentData(id);
+            var opc = Array.isArray(d.opcionesMayor) ? d.opcionesMayor : Object.values(d.opcionesMayor || {});
+
+            if (field === 'nombre') {
+                document.getElementById('input-nombre-' + id).value = d.nombre || '';
+                document.getElementById('input-nombre-' + id).focus();
+            } else if (field === 'precio') {
+                document.getElementById('input-precio-' + id).value = (d.precio || '').replace(/^\$/, '');
+                document.getElementById('input-precio-' + id).focus();
+            } else if (field === 'mayor') {
+                document.getElementById('input-mayor1-' + id).value = opc[0] || '';
+                document.getElementById('input-mayor2-' + id).value = opc[1] || '';
+                document.getElementById('input-mayor1-' + id).focus();
+            } else if (field === 'minimo') {
+                document.getElementById('input-minimo-' + id).value = d.cantidadMinima || '';
+                document.getElementById('input-minimo-' + id).focus();
+            } else if (field === 'default') {
+                document.getElementById('input-default-' + id).value = d.cantidadDefault || '';
+                document.getElementById('input-default-' + id).focus();
+            }
+        }
+
+        function cancelField(id, field) {
+            var row = document.querySelector('.field-row[data-product="' + id + '"][data-field="' + field + '"]');
+            row.querySelector('.field-display').style.display = 'flex';
+            row.querySelector('.field-actions').style.display = 'block';
+            row.querySelector('.field-editing').style.display = 'none';
+        }
+
+        function saveField(id, field) {
+            var d = getCurrentData(id);
+            var update = {};
+
+            if (field === 'nombre') {
+                var val = document.getElementById('input-nombre-' + id).value.trim();
+                if (!val) { showToast('El nombre no puede estar vacío', 'error'); return; }
+                update.nombre = val;
+            } else if (field === 'precio') {
+                var val = document.getElementById('input-precio-' + id).value.trim().replace(/^\$/, '');
+                if (!val) { showToast('El precio no puede estar vacío', 'error'); return; }
+                update.precio = '$' + val;
+            } else if (field === 'mayor') {
+                update.opcionesMayor = [
+                    parseInt(document.getElementById('input-mayor1-' + id).value) || 1,
+                    parseInt(document.getElementById('input-mayor2-' + id).value) || 1
+                ];
+            } else if (field === 'minimo') {
+                update.cantidadMinima = parseInt(document.getElementById('input-minimo-' + id).value) || 1;
+            } else if (field === 'default') {
+                update.cantidadDefault = parseInt(document.getElementById('input-default-' + id).value) || 1;
+            }
+
+            db.collection('productos').doc(id).set(update, { merge: true })
+                .then(function() {
+                    if (!productData[id]) {
+                        productData[id] = d;
+                    }
+                    Object.keys(update).forEach(function(k) { productData[id][k] = update[k]; });
+                    cancelField(id, field);
+                    showToast('Actualizado', 'success');
+                })
+                .catch(function(error) {
+                    showToast('Error: ' + error.message, 'error');
+                });
+        }
+
+        // INITIALIZE
+        function initializeProducts() {
+            var batch = db.batch();
+            batch.set(db.collection('productos').doc('1'), {
+                nombre: "Carbón Quebracho Colorado Bolsa Premium 2.5kg",
+                precio: "$1.850", cantidadMinima: 20, opcionesMayor: [20, 50], cantidadDefault: 20, telefono: "56988396185"
+            });
+            batch.set(db.collection('productos').doc('2'), {
+                nombre: "Saco de Carbón Quebracho Blanco Premium 20kg",
+                precio: "$20.000", cantidadMinima: 10, opcionesMayor: [10, 50], cantidadDefault: 10, telefono: "56988396185"
+            });
+            batch.commit()
+                .then(function() { showToast('Datos inicializados', 'success'); })
+                .catch(function(e) { showToast('Error: ' + e.message, 'error'); });
+        }
+    </script>
+</body>
+</html>
